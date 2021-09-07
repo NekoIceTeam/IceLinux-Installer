@@ -1,0 +1,25 @@
+#!/bin/bash
+
+GREEN="$(tput setaf 2)"
+RESET="$(tput sgr0)"
+
+uefi_dir='/sys/firmware/efi/efivars'
+
+check_bios () {
+echo "${GREEN}* ${RESET}Checking Your Bios Tyoe"
+sleep 2
+if [ -d "$uefi_dir" ]
+then
+	echo "${GREEN}* ${RESET}UEFI ..."
+	sh ./bios/uefi.sh
+else
+	echo "${GREEN}* ${RESET}Legacy ..."
+	sh ./bios/legacy.sh
+fi
+}
+
+main () {
+	check_bios
+}
+
+main "$@"
